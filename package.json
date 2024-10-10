@@ -8,10 +8,10 @@
   "version": "1.0.0",
   "main": "app.js",
   "devDependencies": {},
-  "scripts": {
-    "start": "node back/app.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
+ "scripts": {
+    "test": "echo \"No tests specified\" && exit 0"
+},
+
   "keywords": [],
   "author": "",
   "license": "ISC",
