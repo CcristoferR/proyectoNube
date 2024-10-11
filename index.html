@@ -4,123 +4,196 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lista de Usuarios</title>
-    <style>  
-        body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
-            background-color: #f8f9fa; /* Color de fondo más claro */
-            color: #333; /* Color del texto */
-        }
-        h1 {
-            text-align: center;
-            color: #007bff; /* Color azul para el título */
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-bottom: 20px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Sombra para la tabla */
-        }
-        table, th, td {
-            border: 1px solid #ddd; /* Bordes más claros */
-        }
-        th, td {
-            padding: 12px; /* Padding mejorado */
-            text-align: left;
-        }
-        th {
-            background-color: #007bff; /* Fondo azul para el encabezado */
-            color: white; /* Color blanco para el texto del encabezado */
-        }
-        tr:hover {
-            background-color: #f1f1f1; /* Color de fondo al pasar el mouse */
-        }
-        form {
-            margin-bottom: 20px;
-            background-color: white; /* Fondo blanco para el formulario */
-            padding: 20px; /* Padding para el formulario */
-            border-radius: 8px; /* Bordes redondeados */
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Sombra para el formulario */
-        }
-        label {
-            display: block; /* Para que cada etiqueta esté en su propia línea */
-            margin-bottom: 5px; /* Espacio debajo de las etiquetas */
-            font-weight: bold; /* Negrita para las etiquetas */
-        }
-        input[type="text"], input[type="email"] {
-            padding: 10px;
-            width: calc(100% - 22px);
-            margin-bottom: 15px; /* Espacio más uniforme */
-            border: 1px solid #ccc; /* Borde claro */
-            border-radius: 4px; /* Bordes redondeados */
-            transition: border-color 0.3s; /* Transición suave para el borde */
-        }
-        input[type="text"]:focus, input[type="email"]:focus {
-            border-color: #007bff; /* Color de borde al enfocar */
-            outline: none; /* Sin contorno */
-        }
-        button {
-            padding: 10px 15px;
-            background-color: #28a745; /* Color verde */
-            color: white;
-            border: none;
-            border-radius: 4px; /* Bordes redondeados para el botón */
-            cursor: pointer;
-            transition: background-color 0.3s; /* Transición suave para el botón */
-        }
-        button:hover {
-            background-color: #218838; /* Color verde más oscuro al pasar el mouse */
-        }
-        .delete-button {
-            background-color: #dc3545; /* Color rojo para el botón de eliminar */
-        }
-        .delete-button:hover {
-            background-color: #c82333; /* Color rojo más oscuro al pasar el mouse */
-        }
+    <style>
+        /* General styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+    color: #333;
+}
+
+/* Login container styles */
+#loginContainer {
+    max-width: 400px;
+    margin: 50px auto;
+    padding: 20px;
+    background: #ffffff;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+}
+
+#loginContainer h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #5a5a5a;
+}
+
+/* Input field styles */
+#loginForm input[type="email"],
+#loginForm input[type="password"],
+#usuarioForm input[type="text"],
+#usuarioForm input[type="email"] {
+    width: 100%;
+    padding: 12px; /* Increased padding for better touch target */
+    margin: 10px 0;
+    border: 1px solid #cccccc;
+    border-radius: 4px;
+    box-sizing: border-box; /* Ensures padding doesn't affect total width */
+}
+
+/* Button styles */
+button {
+    width: 100%;
+    padding: 12px; /* Increased padding for consistency */
+    background-color: #007bff; /* Primary color */
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+button:hover {
+    background-color: #0056b3; /* Darker shade on hover */
+}
+
+/* Error message styles */
+#loginError {
+    text-align: center;
+    margin-top: 10px;
+}
+
+/* CRUD container styles */
+#crudContainer {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    background: #ffffff;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+}
+
+#crudContainer h1 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #5a5a5a;
+}
+
+/* Table styles */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+th, td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+th {
+    background-color: #f2f2f2;
+    color: #555;
+}
+
+/* Button styles within table */
+.delete-button {
+    background-color: #d9534f; /* Danger color */
+    padding: 8px 16px; /* Consistent padding */
+    border: none;
+    border-radius: 4px;
+    color: white;
+}
+
+.delete-button:hover {
+    background-color: #c9302c; /* Darker on hover */
+}
+
+/* Responsive styles */
+@media (max-width: 600px) {
+    #loginContainer, #crudContainer {
+        width: 90%;
+    }
+
+    button {
+        font-size: 14px;
+    }
+
+    th, td {
+        font-size: 14px;
+    }
+}
+
     </style>
 </head>
 <body>
+    <!-- Formulario de Login -->
+    <div id="loginContainer">
+        <h2>Iniciar Sesión</h2>
+        <form id="loginForm">
+            <input type="email" id="loginEmail" placeholder="Correo Electrónico" required>
+            <input type="password" id="loginPassword" placeholder="Contraseña" required>
+            <button type="submit">Login</button>
+            <p id="loginError" style="color: red; display: none;">Credenciales incorrectas</p>
+        </form>
+    </div>
 
-    <h1>Lista de Usuarios</h1>
+    <div id="crudContainer" style="display: none;">
+        <h1>Lista de Usuarios</h1>
+        <form id="usuarioForm">
+            <input type="hidden" id="usuarioId" name="usuarioId">
+            <label for="nombre">Nombre:</label>
+            <input type="text" id="usuarioNombre" name="nombre" required>
+            <label for="email">Email:</label>
+            <input type="email" id="usuarioEmail" name="email" required>
+            <button type="submit" id="submitButton">Agregar Usuario</button>
+        </form>
 
-    <!-- Formulario para agregar y editar usuarios -->
-    <form id="usuarioForm">
-        <input type="hidden" id="usuarioId" name="usuarioId"> <!-- Campo oculto para el ID -->
-        <label for="nombre">Nombre:</label>
-        <input type="text" id="nombre" name="nombre" required>
-        <label for="email">Email:</label>
-        <input type="email" id="email" name="email" required>
-        <button type="submit" id="submitButton">Agregar Usuario</button>
-    </form>
-
-    <!-- Tabla para mostrar la lista de usuarios -->
-    <table>
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Nombre</th>
-                <th>Email</th>
-                <th>Acciones</th>
-            </tr>
-        </thead>
-        <tbody id="usuarios-tbody">
-            <!-- Los usuarios se agregarán aquí dinámicamente -->
-        </tbody>
-    </table>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Email</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody id="usuarios-tbody"></tbody>
+        </table>
+    </div>
 
     <script>
-        // Función para cargar y mostrar los usuarios
+        // JavaScript code remains largely unchanged
+        document.getElementById('loginForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const email = document.getElementById('loginEmail').value;
+            const password = document.getElementById('loginPassword').value;
+
+            // Datos de login válidos
+            const validEmail = 'cristofer@gmail.com';
+            const validPassword = 'cristofer123';
+
+            // Verifica las credenciales
+            if (email === validEmail && password === validPassword) {
+                document.getElementById('loginContainer').style.display = 'none';
+                document.getElementById('crudContainer').style.display = 'block';
+            } else {
+                document.getElementById('loginError').style.display = 'block';
+            }
+        });
+
         async function cargarUsuarios() {
             const response = await fetch('/usuarios');
             const data = await response.json();
             const tbody = document.getElementById('usuarios-tbody');
-            tbody.innerHTML = ''; // Limpiar el contenido previo
+            tbody.innerHTML = '';
 
-            // Iterar sobre los usuarios y agregarlos a la tabla
             data.forEach(usuario => {
                 const row = document.createElement('tr');
-
-                // Crear y agregar las celdas
                 row.innerHTML = `
                     <td>${usuario.id}</td>
                     <td>${usuario.nombre}</td>
@@ -134,61 +207,42 @@
             });
         }
 
-        // Llamar a la función para cargar los usuarios al cargar la página
         window.onload = cargarUsuarios;
 
-        // Manejar el envío del formulario para agregar o editar un usuario
-        const form = document.getElementById('usuarioForm');
-        form.addEventListener('submit', async (e) => {
+        document.getElementById('usuarioForm').addEventListener('submit', async (e) => {
             e.preventDefault();
             const id = document.getElementById('usuarioId').value;
-            const nombre = document.getElementById('nombre').value;
-            const email = document.getElementById('email').value;
-            
-            const method = id ? 'PUT' : 'POST'; // Determinar el método (PUT para editar)
+            const nombre = document.getElementById('usuarioNombre').value;
+            const email = document.getElementById('usuarioEmail').value;
 
-            const response = await fetch(`/usuarios${id ? '/' + id : ''}`, {
-                method: method,
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ nombre, email })
-            });
-
-            const result = await response.text();
-            alert(result);
-
-            // Recargar la lista de usuarios después de agregar o editar uno
+            if (id) {
+                await fetch(`/usuarios/${id}`, {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ nombre, email })
+                });
+            } else {
+                await fetch('/usuarios', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ nombre, email })
+                });
+            }
+            e.target.reset();
             cargarUsuarios();
-
-            // Limpiar el formulario
-            form.reset();
-            document.getElementById('usuarioId').value = ''; // Limpiar el ID
-            document.getElementById('submitButton').innerText = 'Agregar Usuario'; // Cambiar texto del botón
         });
 
-        // Función para editar un usuario
         function editarUsuario(id, nombre, email) {
-            document.getElementById('usuarioId').value = id; // Establecer el ID en el formulario
-            document.getElementById('nombre').value = nombre; // Establecer el nombre en el formulario
-            document.getElementById('email').value = email; // Establecer el email en el formulario
-            document.getElementById('submitButton').innerText = 'Editar Usuario'; // Cambiar texto del botón
+            document.getElementById('usuarioId').value = id;
+            document.getElementById('usuarioNombre').value = nombre;
+            document.getElementById('usuarioEmail').value = email;
+            document.getElementById('submitButton').textContent = 'Actualizar Usuario';
         }
 
-        // Función para eliminar un usuario
         async function eliminarUsuario(id) {
-            if (confirm('¿Estás seguro de que deseas eliminar este usuario?')) {
-                const response = await fetch(`/usuarios/${id}`, {
-                    method: 'DELETE',
-                });
-                const result = await response.text();
-                alert(result);
-
-                // Recargar la lista de usuarios después de eliminar
-                cargarUsuarios();
-            }
+            await fetch(`/usuarios/${id}`, { method: 'DELETE' });
+            cargarUsuarios();
         }
     </script>
-
 </body>
 </html>
